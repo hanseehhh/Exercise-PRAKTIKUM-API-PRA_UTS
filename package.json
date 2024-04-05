@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon ./src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "migrate": "node ./migrations/*.js",
+    "migrate": "node ./migrations/20240324121101_create_default_users.js",
     "eslint": "eslint src/**"
   },
   "author": "Janson Hendryli",
@@ -25,7 +25,8 @@
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
     "method-override": "^3.0.0",
-    "mongoose": "^7.6.10",
+    "mongodb": "^6.5.0",
+    "mongoose": "^8.3.0",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "pino": "^8.19.0",

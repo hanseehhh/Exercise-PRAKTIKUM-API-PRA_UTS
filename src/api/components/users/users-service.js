@@ -85,6 +85,17 @@ async function updateUser(id, name, email) {
   return true;
 }
 
+async function CheckMail (email){
+  const mail = await usersRepository.getCheckEmail(email);
+
+  if (!mail){
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
 /**
  * Delete user
  * @param {string} id - User ID
@@ -113,4 +124,5 @@ module.exports = {
   createUser,
   updateUser,
   deleteUser,
+  CheckMail,
 };

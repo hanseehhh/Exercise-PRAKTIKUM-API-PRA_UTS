@@ -50,6 +50,23 @@ async function createUser(request, response, next) {
     const name = request.body.name;
     const email = request.body.email;
     const password = request.body.password;
+    const checkmail = await usersService.CheckMail(email);
+
+    // const cpass = request.body.cpass;
+    // if (cpass != password){
+    //   throw errorResponder(
+    //     errorTypes.INVALID_PASSWORD,
+    //     'Password Tidak Sama'
+    //   );
+    // }
+
+    if (!checkmail){
+      throw errorResponder(
+        errorTypes.EMAIL_ALREADY_TAKEN,
+        'Email already used'
+      );
+    }
+  
 
     const success = await usersService.createUser(name, email, password);
     if (!success) {
