@@ -24,12 +24,18 @@ async function getUser(id) {
  * @param {string} password - Hashed password
  * @returns {Promise}
  */
+
 async function createUser(name, email, password) {
   return User.create({
     name,
     email,
     password,
   });
+}
+
+async function getCheckEmail(email){
+  return User.findOne({ email: email });
+
 }
 
 /**
@@ -51,11 +57,6 @@ async function updateUser(id, name, email) {
       },
     }
   );
-}
-
-async function getCheckEmail(email){
-  return User.findOne({ email: email });
-
 }
 
 /**

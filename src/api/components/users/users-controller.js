@@ -50,24 +50,25 @@ async function createUser(request, response, next) {
     const name = request.body.name;
     const email = request.body.email;
     const password = request.body.password;
+    
+    // CODE UNTUK MENGECEK APAKAH ADA EMAIL SAMA YANG SUDAH DIBENTUK OLEH USER SEBELUMNYA
     const checkmail = await usersService.CheckMail(email);
-
-    // const cpass = request.body.cpass;
-    // if (cpass != password){
-    //   throw errorResponder(
-    //     errorTypes.INVALID_PASSWORD,
-    //     'Password Tidak Sama'
-    //   );
-    // }
-
     if (!checkmail){
       throw errorResponder(
         errorTypes.EMAIL_ALREADY_TAKEN,
         'Email already used'
       );
     }
-  
 
+    // MEMBUAT HAL UNTUK MENGECEK KESAMAAN PASSWORD YANG DARIA AWAL SUDAH DIBENTUK
+    const cpass = request.body.cpass;
+    if (cpass !== password){
+      throw errorResponder(
+        errorTypes.INVALID_PASSWORD,
+        'Password Tidak Sama'
+      );
+    }
+  
     const success = await usersService.createUser(name, email, password);
     if (!success) {
       throw errorResponder(
@@ -89,6 +90,7 @@ async function createUser(request, response, next) {
  * @param {object} next - Express route middlewares
  * @returns {object} Response object or pass an error to the next route
  */
+
 async function updateUser(request, response, next) {
   try {
     const id = request.params.id;
@@ -116,6 +118,7 @@ async function updateUser(request, response, next) {
  * @param {object} next - Express route middlewares
  * @returns {object} Response object or pass an error to the next route
  */
+
 async function deleteUser(request, response, next) {
   try {
     const id = request.params.id;

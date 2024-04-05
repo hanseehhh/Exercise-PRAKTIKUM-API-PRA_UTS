@@ -1,5 +1,6 @@
 const usersRepository = require('./users-repository');
 const { hashPassword } = require('../../../utils/password');
+const { passwordMatched } = require('../../../utils/password');
 
 /**
  * Get list of users
@@ -48,6 +49,7 @@ async function getUser(id) {
  * @param {string} password - Password
  * @returns {boolean}
  */
+
 async function createUser(name, email, password) {
   // Hash password
   const hashedPassword = await hashPassword(password);
@@ -85,6 +87,7 @@ async function updateUser(id, name, email) {
   return true;
 }
 
+// FUNGSI MENGECEK EMAIL
 async function CheckMail (email){
   const mail = await usersRepository.getCheckEmail(email);
 
