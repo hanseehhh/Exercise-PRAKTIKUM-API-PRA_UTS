@@ -56,7 +56,7 @@ async function createUser(request, response, next) {
     if (!checkmail){
       throw errorResponder(
         errorTypes.EMAIL_ALREADY_TAKEN,
-        'Email already used'
+        'Email Already Used'
       );
     }
 
@@ -137,10 +137,32 @@ async function deleteUser(request, response, next) {
   }
 }
 
+async function changePass(request, response, next) {
+  try {
+    const id = request.params.id;
+    const oldpass = request.body.oldpass;
+    const newpass = request.body.newpass;
+    const copass = request.body.copass;
+    const changePass = await usersService.changePass(id, oldpass, newpass, copass);
+
+    if (!changePass) {
+      throw new Error('Something Error');
+    }
+
+    return response
+      .status(200)
+      .json({ message: 'Password Changed Successfully' });
+    } 
+    catch (error) {
+    return next(error);
+  }
+}
+
 module.exports = {
   getUsers,
   getUser,
   createUser,
   updateUser,
   deleteUser,
+  changePass
 };

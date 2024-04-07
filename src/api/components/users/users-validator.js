@@ -16,4 +16,12 @@ module.exports = {
       email: joi.string().email().required().label('Email'),
     },
   },
+  
+  changePass: {
+    body: {
+      oldpass: joi.string().min(6).max(32).required().label('Oldpassword'),
+      newpass: joi.string().min(6).max(32).required().label('Newpassword'),
+      copass: joi.string().min(6).max(32).required().label('CPass'),
+      },
+    },
 };

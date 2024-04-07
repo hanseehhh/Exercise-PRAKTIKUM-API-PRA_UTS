@@ -33,10 +33,16 @@ async function createUser(name, email, password) {
   });
 }
 
+//CEK KECOCOKAN EMAIL
 async function getCheckEmail(email){
   return User.findOne({ email: email });
 
 }
+
+//CEK KECOCOKAN PASSWORD
+async function updatePass(id, newPass) {
+  await User.findByIdAndUpdate(id, { password: newPass });
+} 
 
 /**
  * Update existing user
@@ -75,4 +81,5 @@ module.exports = {
   updateUser,
   deleteUser,
   getCheckEmail,
+  updatePass
 };

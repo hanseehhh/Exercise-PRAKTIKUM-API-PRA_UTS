@@ -63,6 +63,23 @@ async function createUser(name, email, password) {
   return true;
 }
 
+async function changePass( id, oldpass, newpass, copass) {
+
+  const user = await usersRepository.getUser(id);
+  const isPasswordValid = await passwordMatched(oldpass, user.password);
+  
+  if (newpass !== copass) {
+    throw new Error("Password Tidak Sama dengan Pass Sebelumnya");
+  }
+
+  if (!isPasswordValid) {
+    throw new Error("Old Password Tidak Sama Dengan Current Password");
+  }
+  const hashpass = await hashPassword(newpass);
+  await usersRepository.updatePass(id, hashpass);
+  return true;
+}
+
 /**
  * Update existing user
  * @param {string} id - User ID
@@ -128,4 +145,5 @@ module.exports = {
   updateUser,
   deleteUser,
   CheckMail,
+  changePass
 };
