@@ -96,7 +96,7 @@ async function updateUser(id, name, email) {
   }
 
   try {
-    await usersRepository.updateUser(id, name, email);
+    await usersRepository.updateUser(id, name, email, cpass);
   } catch (err) {
     return null;
   }

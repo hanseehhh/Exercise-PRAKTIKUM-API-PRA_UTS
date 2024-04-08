@@ -96,8 +96,16 @@ async function updateUser(request, response, next) {
     const id = request.params.id;
     const name = request.body.name;
     const email = request.body.email;
+    const checkmail = await usersService.CheckMail(email);
 
     const success = await usersService.updateUser(id, name, email);
+    if (!checkmail){
+      throw errorResponder(
+        errorTypes.EMAIL_ALREADY_TAKEN,
+        'Email Already Used'
+      );
+    }
+    
     if (!success) {
       throw errorResponder(
         errorTypes.UNPROCESSABLE_ENTITY,
